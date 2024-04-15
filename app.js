@@ -142,8 +142,16 @@ app.get('/api/amt/all', async (req, res) => {
             return acc;
         }, {});
 
+        // Filter out items that include "EnterAdminMenu"
+        const filteredData2 = Object.keys(filteredData).reduce((acc, key) => {
+            if (!filteredData[key].includes('EnterAdminMenu')) {
+                acc[key] = filteredData[key];
+            }
+            return acc;
+        }, {});
+
         // Count the number of items in the filtered data
-        const count = Object.keys(filteredData).length;
+        const count = Object.keys(filteredData2).length;
 
         // Send the count as the response
         res.json({ count });
@@ -200,8 +208,16 @@ app.get('/api/amt/day/:day', async (req, res) => {
             return acc;
         }, {});
 
+        // Filter out items that include "EnterAdminMenu"
+        const filteredData2 = Object.keys(filteredData).reduce((acc, key) => {
+            if (!filteredData[key].includes('EnterAdminMenu')) {
+                acc[key] = filteredData[key];
+            }
+            return acc;
+        }, {});
+
         // Count the number of items in the filtered data
-        const count = Object.keys(filteredData).length;
+        const count = Object.keys(filteredData2).length;
 
 
         // Send the count as the response
