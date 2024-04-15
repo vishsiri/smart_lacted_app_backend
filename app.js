@@ -52,7 +52,9 @@ async function countActionsByDayHourAndYear(data) {
     });
     return counters;
 }
-
+app.get("/", (req, res) => {
+    res.send("Express on Vercel");
+});
 // API endpoint to get action counts by day, hour, and year
 app.get('/api/action-counts-by-day-hour-year', async (req, res) => {
     const data = await fetchDataFromApi(apiUrl);
@@ -119,7 +121,7 @@ app.get('/api/get-current-date', (req, res) => {
     const currentDate = getCurrentDate();
     res.send(currentDate);
 });
-app.get('/amt/all', async (req, res) => {
+app.get('/api/amt/all', async (req, res) => {
     try {
         // Fetch data from the Firebase Realtime Database endpoint
         const response = await fetch('https://esp32test-trigger-default-rtdb.asia-southeast1.firebasedatabase.app/AllHis.json');
@@ -151,24 +153,24 @@ app.get('/amt/all', async (req, res) => {
         res.status(500).send('Error fetching data');
     }
 });
-app.get('/amt/day/all', async (req, res) => {
-    
+app.get('/api/amt/day/all', async (req, res) => {
+
     const currentDate = await moment().format('dddd, MMMM DD YYYY');
     console.log(currentDate);
-    const todayData = await fetch(`http://localhost:3000/amt/day/${currentDate}`);
+    const todayData = await fetch(`http://localhost:3000/api/amt/day/${currentDate}`);
     const data = await todayData.json();
     res.send(data);
 });
 
 // Define your API endpoint
-app.get('/getDay', (req, res) => {
-// Get the current date
-const currentDate = moment().format('dddd, MMMM DD YYYY');
+app.get('/api/getDay', (req, res) => {
+    // Get the current date
+    const currentDate = moment().format('dddd, MMMM DD YYYY');
 
-// Send the formatted date as the response
-res.send(currentDate);
+    // Send the formatted date as the response
+    res.send(currentDate);
 });
-app.get('/amt/day/:day', async (req, res) => {
+app.get('/api/amt/day/:day', async (req, res) => {
     const day = req.params.day;
     try {
         // Fetch data from the Firebase Realtime Database endpoint
@@ -214,3 +216,6 @@ app.get('/amt/day/:day', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+// Export the Express API
+module.exports = app;
