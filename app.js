@@ -5,9 +5,7 @@ const moment = require('moment');
 const app = express();
 const port = 3000;
 
-app.use(cors({
-    origin: 'https://iot.vishsiri.space', // Update this with your client's origin
-}));
+app.use(cors());
 
 // API endpoint URLs
 const apiUrl = 'https://esp32test-trigger-default-rtdb.asia-southeast1.firebasedatabase.app/AllHis.json';
