@@ -157,7 +157,7 @@ app.get('/api/amt/day/all', async (req, res) => {
 
     const currentDate = await moment().format('dddd, MMMM DD YYYY');
     console.log(currentDate);
-    const todayData = await fetch(`http://localhost:3000/api/amt/day/${currentDate}`);
+    const todayData = await fetch(`https://iot.vishsiri.space/api/amt/day/${currentDate}`);
     const data = await todayData.json();
     res.send(data);
 });
